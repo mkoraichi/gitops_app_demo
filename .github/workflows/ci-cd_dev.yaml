@@ -56,7 +56,7 @@ jobs:
         NEW_TAG="${{ github.run_number }}"
         
         # Update image tag in kustomize/overlays/dev/kustomization.yaml
-        sed -i "s|newTag:.*|newTag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_TAG|" kustomize/overlays/dev/kustomization.yaml
+        sed -i "s|newTag:.*|newTag: \"$NEW_TAG\"|" kustomize/overlays/dev/kustomization.yaml
         
         # Commit and push changes
         git config --global user.name "GitHub Actions"
