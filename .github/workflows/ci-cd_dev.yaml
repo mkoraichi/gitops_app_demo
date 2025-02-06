@@ -46,11 +46,10 @@ jobs:
         GH_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git clone https://${{ github.actor }}:${{ secrets.PAT_TOKEN }}@github.com/${{ env.DEPLOYMENT_REPO }}.git deployment-repo
-        cd deployment-repo/kustomize/base
         NEW_TAG="${{ github.run_number }}"
         
-        # Update image tag in deployment.yaml
-        sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_TAG|" deployment.yaml
+        # Update image tag in kustomize/overlays/dev/kustomization.yaml
+        sed -i "s|newTag:.*|newTag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_TAG|" kustomize/overlays/dev/kustomization.yaml
         
         # Commit and push changes
         git config --global user.name "GitHub Actions"
