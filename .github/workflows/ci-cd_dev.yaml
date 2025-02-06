@@ -48,11 +48,7 @@ jobs:
         repository: ${{ env.DEPLOYMENT_REPO }}
         token: ${{ secrets.PAT_TOKEN }}
     - name: Update deployment repository
-      env:
-        GH_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
-        git clone https://${{ github.actor }}:${{ secrets.PAT_TOKEN }}@github.com/${{ env.DEPLOYMENT_REPO }}.git deployment-repo
-        cd deployment-repo
         NEW_TAG="${{ github.run_number }}"
         
         # Update image tag in kustomize/overlays/dev/kustomization.yaml
