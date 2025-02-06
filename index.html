@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harington OpenSource - GitOps Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-start: #6a11cb;
+            --gradient-end: #2575fc;
+            --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --icon-color: #f0f0f0; /* Light gray for icons */
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            font-family: var(--font-primary);
+            display: flex;
+            flex-direction: column;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            max-width: 300px;
+            width: 80%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .emoji-bounce {
+            font-size: 6rem;
+            margin: 2rem 0;
+            animation: bounce 2s ease infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            color: var(--icon-color); /* Apply light color to emoji */
+        }
+
+        .info-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-item {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            justify-content: center;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+            color: var(--icon-color); /* Apply light color to icons */
+            transition: color 0.3s ease;
+        }
+
+        .info-item:hover .info-icon {
+            color: #ffffff; /* Brighter white on hover */
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 200px;
+            }
+            .emoji-bounce { font-size: 4rem; }
+            .info-item { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://harington.fr/wp-content/uploads/2024/10/Logo-Harington-Blanc-sans-fond-300x154.png" 
+                 alt="Harington Open Source Logo" 
+                 class="logo">
+        </header>
+        
+        <div class="emoji-bounce">😊</div>
+        
+        <div class="info-panel">
+            <div class="info-item">
+                <i class="fas fa-calendar-alt info-icon"></i>
+                <span id="currentDate"></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-code-branch info-icon"></i>
+                <span id="appVersion">1.0.0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic date display
+        function updateDateTime() {
+            const dateElement = document.getElementById('currentDate');
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            dateElement.textContent = new Date().toLocaleDateString('en-US', options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Add subtle hover effect to info items
+        document.querySelectorAll('.info-item').forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.style.transform = 'scale(1.02)';
+                item.style.transition = 'transform 0.3s ease';
+            });
+            item.addEventListener('mouseout', () => {
+                item.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
